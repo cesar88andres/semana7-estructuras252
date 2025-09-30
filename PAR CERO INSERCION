@@ -1,0 +1,30 @@
+LinkedListInsert(LinkedListNode: head, Integer: index, Type: value):
+
+    # Caso especial: insertar en la cabeza (índice 0, que es par)
+    IF index == 0:
+        LinkedListNode: new_head = LinkedListNode(value)
+        new_head.next = head
+        return new_head
+
+    # Inicializar punteros y contador
+    LinkedListNode: current = head
+    LinkedListNode: previous = null
+    Integer: count = 0  # Empezamos en 0 (par)
+
+    # Recorrer hasta llegar al índice deseado o al final de la lista
+    WHILE count < index AND current != null:
+        previous = current
+        current = current.next
+        count = count + 1
+
+    # Verificar si el índice está fuera de rango
+    IF count < index:  # No llegamos al índice porque la lista terminó
+        Produce an invalid index error.
+
+    # Crear nuevo nodo e insertarlo entre 'previous' y 'current'
+    LinkedListNode: new_node = LinkedListNode(value)
+    new_node.next = previous.next  # o current, son lo mismo aquí
+    previous.next = new_node
+
+    # Devolver la cabeza original (no cambió, excepto en el caso index==0)
+    return head
